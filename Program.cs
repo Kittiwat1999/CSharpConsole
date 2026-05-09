@@ -11,17 +11,19 @@ namespace MyApp
     {
         static void Main(string[] args)
         {
-            int[] input = [0,1,0,3,12];
-            int[] expected =  [1,3,12,0,0];
+            int[] input1 = [1,8,6,2,5,4,8,3,7];
+            // string input2 = "c";
+            int expected =  49;
 
             // loging
-            Console.WriteLine($"input: [{string.Join(", ", input)}]");
+            Console.WriteLine($"input: [{string.Join(", ", input1)}]");
+            // Console.WriteLine($"input: [{string.Join(", ", input2)}]");
             Console.WriteLine($"expected: [{string.Join(", ", expected)}]");
 
-            Solutions.MoveZeroes(input);
-            Console.WriteLine($"result: [{string.Join(", ", input)}]");
-            // if (expected == input)
-            if (expected.SequenceEqual(input))
+            int result = Solutions.MaxArea(input1);
+            Console.WriteLine($"result: [{string.Join(", ", result)}]");
+            if (expected == result)
+            // if (expected.SequenceEqual(input))
             {
                 Console.WriteLine("Pass.");
             } else {
@@ -228,6 +230,45 @@ namespace MyApp
             {
                 nums[write++] = 0;
             }
+        }
+
+        public static bool IsSubsequence(string s, string t) {
+            int read_s = 0;
+            int read_t = 0;
+
+            if (s.Length == 0) return true;
+            if (t.Length == 0) return false;
+
+            while (read_t < t.Length) {
+                if (t[read_t] == s[read_s]) {
+                    read_s ++;
+                    if (read_s == s.Length) return true;
+                }
+
+                read_t ++;
+            }
+
+            return false;
+        }
+
+        public static int MaxArea(int[] height) {
+            int maxArea = 0;
+            int left = 0;
+            int right = height.Length - 1;
+
+            while (left < right)
+            {
+                int minHeight = Math.Min(height[left], height[right]);
+                maxArea = Math.Max(minHeight * (right - left), maxArea);
+                if (height[left] > height[right])
+                {
+                    right --;
+                } else {
+                    left ++;
+                }
+            }
+
+            return maxArea;
         }
     }
 }
