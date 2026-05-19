@@ -11,16 +11,16 @@ namespace MyApp
     {
         static void Main(string[] args)
         {
-            string input1 = "abciiidef";
+            int[] input1 = {2,1,-1};
             // string input2 = "c";
-            double expected =  3;
+            int expected =  0;
 
             // loging
             Console.WriteLine($"input: [{string.Join(", ", input1)}]");
             // Console.WriteLine($"input: [{string.Join(", ", input2)}]");
             Console.WriteLine($"expected: [{string.Join(", ", expected)}]");
 
-            double result = SlidingWindow.MaxVowels(input1, 3);
+            int result = SlidingWindow.PivotIndex(input1);
             Console.WriteLine($"result: [{string.Join(", ", result)}]");
             if (expected == result)
             // if (expected.SequenceEqual(input))
