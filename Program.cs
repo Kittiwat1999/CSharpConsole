@@ -11,19 +11,20 @@ namespace MyApp
     {
         static void Main(string[] args)
         {
-            int[] input1 = {2,1,-1};
+            int[] input1 = {1,2,2,1,1,3};
+            // int[] input2 = {2,4,6};
             // string input2 = "c";
-            int expected =  0;
+            bool expected = true;
 
             // loging
             Console.WriteLine($"input: [{string.Join(", ", input1)}]");
             // Console.WriteLine($"input: [{string.Join(", ", input2)}]");
             Console.WriteLine($"expected: [{string.Join(", ", expected)}]");
 
-            int result = SlidingWindow.PivotIndex(input1);
+            bool result = HashMapSet.UniqueOccurrences(input1);
             Console.WriteLine($"result: [{string.Join(", ", result)}]");
             if (expected == result)
-            // if (expected.SequenceEqual(input))
+            // if (expected.SequenceEqual(result))
             {
                 Console.WriteLine("Pass.");
             } else {
