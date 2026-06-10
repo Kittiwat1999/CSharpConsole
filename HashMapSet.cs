@@ -25,5 +25,35 @@ namespace MyApp
 
             return keyList.Count == valueList.Count;
         }
+
+        public static bool CloseString(string word1, string word2)
+        {
+            if(word1.Length != word2.Length) return false;
+
+            var set1 = new HashSet<char> (word1);
+            var set2 = new HashSet<char> (word2);
+            var occurences1 = new Dictionary<char, int>();
+            var occurences2 = new Dictionary<char, int>();
+
+            foreach(char ch in word1)
+            {
+                if(!occurences1.ContainsKey(ch)) occurences1[ch] = 0;
+                occurences1[ch] ++;
+            }
+
+            foreach(char ch in word2)
+            {
+                if(!occurences2.ContainsKey(ch)) occurences2[ch] = 0;
+                occurences2[ch] ++;
+            }
+
+            List<int> frequencies1 = new List<int>(occurences1.Values);
+            List<int> frequencies2 = new List<int>(occurences2.Values);
+
+            frequencies1.Sort();
+            frequencies2.Sort();
+            
+            return set1.SetEquals(set2) && frequencies1.SequenceEqual(frequencies2);
+        }
     }
 }

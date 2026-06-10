@@ -6,3 +6,5 @@ obj/
 
 .fake
 *.lscache
+
+Dockerfile
