@@ -11,17 +11,23 @@ namespace MyApp
     {
         static void Main(string[] args)
         {
-            int[] input1 = {1,2,2,1,1,3};
+            var input1 = new[]
+            {
+                new[] { 3, 2, 1 },
+                new[] { 1, 7, 6 },
+                new[] { 2, 7, 7 }
+            };
+
             // int[] input2 = {2,4,6};
             // string input2 = "c";
-            bool expected = true;
+            int expected = 1;
 
             // loging
-            Console.WriteLine($"input: [{string.Join(", ", input1)}]");
+            // Console.WriteLine($"input: [{string.Join(", ", input1)}]");
             // Console.WriteLine($"input: [{string.Join(", ", input2)}]");
             Console.WriteLine($"expected: [{string.Join(", ", expected)}]");
 
-            bool result = HashMapSet.UniqueOccurrences(input1);
+            int result = HashMapSet.EqualPairsLinQ(input1);
             Console.WriteLine($"result: [{string.Join(", ", result)}]");
             if (expected == result)
             // if (expected.SequenceEqual(result))

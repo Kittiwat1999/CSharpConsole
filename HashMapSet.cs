@@ -1,3 +1,5 @@
+using System.IO.Pipelines;
+
 namespace MyApp
 {
     static class HashMapSet
@@ -54,6 +56,48 @@ namespace MyApp
             frequencies2.Sort();
             
             return set1.SetEquals(set2) && frequencies1.SequenceEqual(frequencies2);
+        }
+
+        public static int EqualPairs(int[][] grid) {
+            var n = grid.Length;
+
+            var rowMap = new Dictionary<string, int>();   
+            foreach(var row in grid)
+            {
+                var key = string.Join(",", row);
+                if(!rowMap.ContainsKey(key))
+                {
+                    rowMap[key] = 0;
+                }
+                rowMap[key] ++;                
+            }
+
+            int result = 0;
+            for(int c = 0; c < n; c++)
+            {
+                var col = Enumerable.Range(0, n).Select(r => grid[r][c]);
+                string key = string.Join(',', col);
+                if (rowMap.ContainsKey(key))
+                {
+                    result += rowMap[key];
+                }
+            }
+
+            return result;
+        }
+
+        public static int EqualPairsLinQ(int[][] grid)
+        {
+            int n = grid.Length;
+
+            var rowGroup = grid
+                .Select(row => string.Join(",", row))
+                .GroupBy(r => r)
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            return Enumerable.Range(0, n)
+            .Select(c => string.Join(",", Enumerable.Range(0,n).Select(r => grid[r][c])))
+            .Sum(colkey => rowGroup.ContainsKey(colkey)? rowGroup[colkey] : 0);
         }
     }
 }
