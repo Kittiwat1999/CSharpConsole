@@ -88,15 +88,16 @@ namespace MyApp
 
         public static int EqualPairsLinQ(int[][] grid)
         {
-            int n = grid.Length;
-
+            int nRow  = grid.Length;
+            int nCol = grid[0].Length;
+            
             var rowGroup = grid
                 .Select(row => string.Join(",", row))
                 .GroupBy(r => r)
                 .ToDictionary(g => g.Key, g => g.Count());
 
-            return Enumerable.Range(0, n)
-            .Select(c => string.Join(",", Enumerable.Range(0,n).Select(r => grid[r][c])))
+            return Enumerable.Range(0, nCol)
+            .Select(c => string.Join(",", Enumerable.Range(0, nRow).Select(r => grid[r][c])))
             .Sum(colkey => rowGroup.ContainsKey(colkey)? rowGroup[colkey] : 0);
         }
     }
