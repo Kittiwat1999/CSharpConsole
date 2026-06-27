@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.IO.Pipelines;
 using System.Buffers;
+using System.Text;
 
 namespace MyApp;
 
@@ -22,7 +23,7 @@ static class Stack
             }
         }
 
-        return new string(stack.ToArray().Reverse().ToArray());
+        return new string(stack.Reverse().ToArray());
     }
 
     public static int[] AsteroidCollision(int[] asteroids) {
@@ -56,5 +57,42 @@ static class Stack
         }
 
         return stack.Reverse().ToArray<int>();
+    }
+
+    public static  string DecodeString(string s) {
+        var stackNum = new Stack<int>();
+        var stackString = new Stack<StringBuilder>();
+        var currentNum = 0;
+        var currentString = new StringBuilder();
+
+        foreach(char c in s)
+        {
+            if(char.IsDigit(c))
+            {
+                currentNum = currentNum * 10 + (c - '0');
+            } else if (c == '[')
+            {
+                stackNum.Push(currentNum);
+                stackString.Push(currentString);
+
+                currentNum = 0;
+                currentString = new StringBuilder();
+            } else if (c == ']')
+            {
+                int repeatCount = stackNum.Pop();
+                StringBuilder prevString = stackString.Pop();
+                for(int i = 0; i < repeatCount; i++)
+                {
+                    prevString.Append(currentString);
+                }
+
+                currentString = prevString;
+            } else
+            {
+                currentString.Append(c);
+            }
+        }
+
+        return currentString.ToString();
     }
 }
